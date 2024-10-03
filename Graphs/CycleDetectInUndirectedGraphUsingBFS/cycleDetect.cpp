@@ -1,0 +1,124 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define pb push_back
+#define mp make_pair
+#define rep1(i, n) for (int i = 0; i < n; i++)
+#define rep2(i, n) for (int i = 1; i <= n; i++)
+#define rep(i, a, b) for (int i = a; i < b; i++)
+#define REPD(i, n) for (int i = n - 1; i >= 0; i--)
+#define FORD(i, a, b) for (int i = a; i >= b; i--)
+#define remax(a, b) a = max(a, b)
+#define remin(a, b) a = min(a, b)
+#define all(v) v.begin(), v.end()
+typedef map<int, int> mii;
+typedef vector<int> vi;
+typedef vector<vi> vvi;
+typedef pair<int, int> pii;
+typedef vector<pii> vpii;
+#define F first
+#define S second
+const int MAXN = 1000005;
+const int MOD = 1000000007;
+
+void addEdge(vi arr[], int s, int d)
+{
+    arr[s].pb(d);
+    arr[d].pb(s);
+}
+
+void printGraph(vi graph[], int vertices)
+{
+    rep(i, 0, vertices)
+    {
+        cout << i;
+        for (auto x : graph[i])
+        {
+            cout << " -> " << x;
+        }
+        cout << "\n";
+    }
+}
+
+bool detect(vi graph[], int start, int visited[])
+{
+    queue<pii> q;
+    q.push({start, -1});
+
+    visited[start] = 1;
+
+    while (!q.empty())
+    {
+        int node = q.front().first;
+        int parent = q.front().second;
+        q.pop();
+
+        for (auto adjNode : graph[node])
+        {
+            if (!visited[adjNode])
+            {
+                visited[adjNode]=1;
+                q.push({adjNode, node});
+            }
+            else if (parent != adjNode)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+bool cycle_detect(vi graph[], int vertices)
+{
+
+    int visited[vertices] = {0};
+
+    rep(i, 0, vertices)
+    {
+        if (!visited[i])
+        {
+            if (detect(graph, i, visited))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+int main(int argc, char const *argv[])
+{
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int vertices, edges;
+    cin >> vertices >> edges;
+
+    vi graph[vertices];
+
+    rep(i, 0, edges)
+    {
+        int s, t;
+        cin >> s >> t;
+        graph[s].pb(t);
+        graph[t].pb(s);
+    }
+
+    if (cycle_detect(graph,vertices))
+    {
+        cout << "YES";
+    }
+    else
+    {
+        cout << "NO";
+    }
+
+    return 0;
+}

@@ -1,0 +1,2 @@
+Repeating Number is :2
+Missing Number is : 4

@@ -1,0 +1,4 @@
+Original List:
+1 0x25ce0a21790 -> 2 0x25ce0a21ad0 -> 3 0x25ce0a21af0 -> 4 0x25ce0a21b10 -> NULL
+Deep Copy List:
+1 0x25ce0a21b30 -> 2 0x25ce0a21b50 -> 3 0x25ce0a21b70 -> 4 0x25ce0a21b90 -> NULL
